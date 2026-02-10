@@ -1,16 +1,16 @@
-# 📄 DocFormatter (DFm)
+# 📄 DocGen
 
-**Professional Document Template System - Generate Perfect DOCX Files from Word Templates**
+**Document Generator - Generate Professional DOCX Files from Word Templates**
 
-> *DFm = DocFormatter (medium)* - Your document formatting assistant
+> *Your document automation assistant - Create perfect documents in seconds!*
 
 Transform your document workflow with **11 pre-built templates** across 5 categories. Simply edit variables, run a command, and get a professional document instantly!
 
 
 
-## ✨ What Can DFm Do?
+## ✨ What Can DocGen Do?
 
-DFm (DocFormatter) is your **document automation assistant** that helps you:
+DocGen (Document Generator) is your **document automation assistant** that helps you:
 
 - 📝 **Generate** professional documents in seconds
 - 🎨 **Use** pre-designed Word templates (fully editable)
@@ -136,7 +136,7 @@ lb03/
 
 ---
 
-### 🌟 Why Use DFm?
+### 🌟 Why Use DocGen?
 
 | Feature | Benefit |
 |---------|---------|
@@ -242,7 +242,7 @@ python document_generator.py custom -o 我的文档.docx
 
 ## ✏️ Custom Template - Create Your Own!
 
-DFm includes a **special blank template** designed for you to create custom documents!
+DocGen includes a **special blank template** designed for you to create custom documents!
 
 ### 🎯 How to Use the Custom Template
 
