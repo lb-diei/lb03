@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-DocFormatter - Document Template System
+DocGen - Document Generator
 
 Generate professional DOCX documents from Word templates.
 """
@@ -99,7 +99,7 @@ def main():
     """CLI interface."""
     import argparse
     
-    parser = argparse.ArgumentParser(description='DocFormatter - Generate DOCX from templates')
+    parser = argparse.ArgumentParser(description='DocGen - Generate DOCX from templates')
     parser.add_argument('template', nargs='?', help='Template name (without .docx extension)')
     parser.add_argument('-o', '--output', default='output.docx', help='Output filename')
     parser.add_argument('-l', '--list', action='store_true', help='List available templates')
