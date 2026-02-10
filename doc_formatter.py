@@ -216,7 +216,37 @@ class DocumentFormatter:
         
         lines = content.strip().split('\n')
         
-        for line in lines:
+        # Parse metadata from YAML front matter
+        metadata = {}
+        content_start = 0
+        
+        if lines and lines[0].startswith('---'):
+            # Parse YAML front matter
+            content_start = 1
+            for i, line in enumerate(lines[1:], 1):
+                if line.startswith('---'):
+                    content_start = i + 1
+                    break
+                if ':' in line:
+                    key, value = line.split(':', 1)
+                    metadata[key.strip()] = value.strip()
+        
+        # Add author info if available
+        if 'author' in metadata:
+            author_para = doc.add_paragraph(metadata['author'])
+            self.apply_style_to_paragraph(author_para, self.config.get('signature', {}))
+        
+        # Add date if available
+        if 'date' in metadata:
+            date_para = doc.add_paragraph(metadata['date'])
+            self.apply_style_to_paragraph(date_para, self.config.get('signature', {}))
+        
+        # Add blank line
+        if metadata:
+            doc.add_paragraph()
+        
+        # Process main content
+        for line in lines[content_start:]:
             line = line.strip()
             if not line:
                 continue
