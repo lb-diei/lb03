@@ -123,13 +123,26 @@ def main():
         parser.print_help()
         return
     
-    # Parse variables
+    # Parse variables from command line
     variables = {}
     if args.variable:
         for var in args.variable:
             if '=' in var:
                 key, value = var.split('=', 1)
                 variables[key] = value
+    else:
+        # Interactive mode: prompt user for variables
+        print(f"\n[DocGen] Generating document from template: {args.template}")
+        print("Please fill in the following values (press Enter to use default):\n")
+        common_vars = ['title', 'author', 'date', 'content', 'doc_number', 'meeting_date', 'location', 'period', 'event_name', 'event_date', 'event_location', 'major', 'advisor', 'university']
+        for var in common_vars:
+            default = generator.default_vars.get(var, '')
+            user_input = input(f"  {var} [{default}]: ").strip()
+            if user_input:
+                variables[var] = user_input
+            elif default:
+                variables[var] = default
+        print()
     
     # Generate document
     try:
