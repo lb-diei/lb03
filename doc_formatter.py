@@ -32,11 +32,11 @@ class DocumentFormatter:
                 "margin_left": Cm(2.8),
                 "margin_right": Cm(2.6),
                 "line_spacing": 1.5,
-                "font_family": "仿宋_GB2312",
+                "font_family": "FangSong_GB2312",
                 "font_size": 16
             },
             "title": {
-                "font_family": "黑体",
+                "font_family": "SimHei",
                 "font_size": 22,
                 "bold": True,
                 "alignment": "center",
@@ -44,7 +44,7 @@ class DocumentFormatter:
                 "spacing_after": 20
             },
             "heading1": {
-                "font_family": "黑体",
+                "font_family": "SimHei",
                 "font_size": 16,
                 "bold": True,
                 "alignment": "left",
@@ -52,7 +52,7 @@ class DocumentFormatter:
                 "spacing_after": 10
             },
             "heading2": {
-                "font_family": "楷体_GB2312",
+                "font_family": "KaiTi_GB2312",
                 "font_size": 15,
                 "bold": False,
                 "alignment": "left",
@@ -60,7 +60,7 @@ class DocumentFormatter:
                 "spacing_after": 8
             },
             "body": {
-                "font_family": "仿宋_GB2312",
+                "font_family": "FangSong_GB2312",
                 "font_size": 16,
                 "bold": False,
                 "alignment": "left",
@@ -70,7 +70,7 @@ class DocumentFormatter:
                 "spacing_after": 0
             },
             "signature": {
-                "font_family": "仿宋_GB2312",
+                "font_family": "FangSong_GB2312",
                 "font_size": 16,
                 "bold": False,
                 "alignment": "right",
@@ -127,7 +127,7 @@ class DocumentFormatter:
         """Detect the type of paragraph based on its style and content."""
         # Check style name
         style_name = para.style.name if para.style else ""
-        if 'Heading' in style_name or '标题' in style_name:
+        if 'Heading' in style_name or 'Title' in style_name:
             return 'heading1'
         
         # Check by font size (rough estimation)
@@ -147,7 +147,7 @@ class DocumentFormatter:
         if not text:
             return 'empty'
         
-        # 一、二、三... or 1、2、3... or 第一章...
+        # Chinese numbering patterns: 一、二、三... or 1、2、3...
         if re.match(r'^[一二三四五六七八九十\d]+\s*[\.\、：:]', text):
             return 'heading1'
         if re.match(r'^[（\(]\s*\d+[）\)]', text):
@@ -221,6 +221,7 @@ class DocumentFormatter:
             if not line:
                 continue
             
+            # Detect line type by markdown markers
             if line.startswith('# '):
                 para = doc.add_heading(line[2:].strip(), 0)
                 self.apply_style_to_paragraph(para, self.config.get('title', {}))
@@ -296,7 +297,7 @@ def main():
     
     try:
         output_path = formatter.format_from_file(args.input, args.output)
-        print(f"[DocGen] Document formatted successfully!")
+        print("[DocGen] Document formatted successfully!")
         print(f"  Input:  {args.input}")
         print(f"  Output: {output_path}")
     except Exception as e:
