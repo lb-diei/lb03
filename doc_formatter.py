@@ -255,6 +255,10 @@ class DocumentFormatter:
             if line.startswith('# '):
                 para = doc.add_heading(line[2:].strip(), 0)
                 self.apply_style_to_paragraph(para, self.config.get('title', {}))
+                # Title indent (2 chars like body)
+                para.paragraph_format.first_line_indent = Cm(1.0)
+                # Add extra spacing after title
+                para.paragraph_format.space_after = Pt(24)  # 空一行
             elif line.startswith('## '):
                 para = doc.add_paragraph(line[3:].strip())
                 self.apply_style_to_paragraph(para, self.config.get('heading1', {}))
