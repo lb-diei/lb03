@@ -1,6 +1,6 @@
-# 📄 Document Template System
+# 📄 DocFormatter
 
-**Generate Professional DOCX Documents from Customizable Templates**
+**Document Template System - Generate Professional DOCX Documents from Customizable Templates**
 
 
 
