@@ -18,8 +18,12 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 class DocumentGenerator:
     """Generate DOCX documents from Word templates."""
     
-    def __init__(self, template_dir: str = "templates"):
+    def __init__(self, template_dir: str = None):
         """Initialize with template directory."""
+        if template_dir is None:
+            # Default to templates folder relative to this script
+            script_dir = Path(__file__).parent
+            template_dir = str(script_dir / "templates")
         self.template_dir = Path(template_dir)
         self.default_vars = {
             "title": "Document Title",
@@ -30,12 +34,12 @@ class DocumentGenerator:
     
     def load_template(self, template_name: str) -> Document:
         """Load a Word template file."""
-        template_path = self.template_dir / f"{template_name}.docx"
+        # Search in all subdirectories
+        for template_path in self.template_dir.rglob(f"{template_name}.docx"):
+            if template_path.is_file():
+                return Document(template_path)
         
-        if not template_path.exists():
-            raise FileNotFoundError(f"Template not found: {template_path}")
-        
-        return Document(template_path)
+        raise FileNotFoundError(f"Template not found: {template_name}.docx")
     
     def replace_variables(self, doc: Document, variables: Dict[str, Any]) -> Document:
         """Replace variables in the document."""
@@ -43,14 +47,14 @@ class DocumentGenerator:
             for run in paragraph.runs:
                 text = run.text
                 for key, value in variables.items():
-                    if f"{{{{ {key} }}}}" in text:
-                        text = text.replace(f"{{{{ {key} }}}}", str(value))
-                        text = text.replace(f"{{{{{key}}}}", str(value))
-                        text = text.replace(f"{{ {key} }}", str(value))
-                    elif f"{{{{{key}}}}}" in text:
-                        text = text.replace(f"{{{{{key}}}}}", str(value))
-                    elif f"{{{{{key}}}}}" in text:
-                        text = text.replace(f"{{{{{key}}}}}", str(value))
+                    # Replace {{key}} format
+                    placeholder = "{{" + key + "}}"
+                    if placeholder in text:
+                        text = text.replace(placeholder, str(value))
+                    # Replace {{ key }} format with spaces
+                    placeholder_spaced = "{{ " + key + " }}"
+                    if placeholder_spaced in text:
+                        text = text.replace(placeholder_spaced, str(value))
                 run.text = text
         return doc
     
