@@ -154,9 +154,14 @@ Create a Word document (.docx) in `templates/` directory with placeholders:
 
 ---
 
+## Contributing
+
+Contributing Issues and Pull Requests welcome!
+
 ## License
 
-MIT License - Free for personal and commercial use.
+MIT License - Free to use and modify
 
-**Author:** Your Name  
-**Repository:** https://github.com/lb-diei/DocGen
+## Author
+
+Created with Claude Code
