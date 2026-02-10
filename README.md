@@ -1,6 +1,6 @@
-# 📄 DocGen
+# 📄 Document Generator (DocGen)
 
-**Document Generator - Generate Professional DOCX Files from Word Templates**
+**Professional Document Template System - Generate Perfect DOCX Files from Word Templates**
 
 > *Your document automation assistant - Create perfect documents in seconds!*
 
